@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project · Hooi Wai San</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;500&family=Cinzel:wght@400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="assets/project.css">
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="portfolio.html" class="nav-logo">
+    <div class="nav-seal">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <text x="16" y="25" text-anchor="middle" font-family="'ZCOOL XiaoWei','Noto Serif SC',serif" font-size="22" font-weight="600" fill="#f7faf5">許</text>
+      </svg>
+    </div>
+    <span class="nav-name">Hooi Wai San</span>
+  </a>
+  <a href="portfolio.html#projects" class="nav-back" id="backBtn">
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M16 10H4M9 5L4 10l5 5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Projects
+  </a>
+</nav>
+
+<!-- PAGE CONTENT (injected by JS) -->
+<div id="page"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">
+    <div class="f-seal">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <text x="16" y="25" text-anchor="middle" font-family="'ZCOOL XiaoWei','Noto Serif SC',serif" font-size="22" font-weight="600" fill="#f7faf5">許</text>
+      </svg>
+    </div>
+    <span class="f-name">Hooi Wai San · 作品展示</span>
+  </div>
+  <span class="f-copy">© 2025 · All Rights Reserved · Designed in Malaysia</span>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ─── CURSOR ───
+const cur = document.getElementById('cur'), curR = document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+(function loop(){ rx+=(mx-rx)*.13; ry+=(my-ry)*.13; cur.style.left=mx+'px'; cur.style.top=my+'px'; curR.style.left=rx+'px'; curR.style.top=ry+'px'; requestAnimationFrame(loop); })();
+function cursorHover(els){ els.forEach(el=>{ el.addEventListener('mouseenter',()=>{ cur.style.width='16px'; cur.style.height='16px'; curR.style.width='44px'; curR.style.height='44px'; }); el.addEventListener('mouseleave',()=>{ cur.style.width='8px'; cur.style.height='8px'; curR.style.width='30px'; curR.style.height='30px'; }); }); }
+
+// ─── PROJECT DATA ───
+const PROJECTS = {
+  'ancient-temple': {
+    id: 'ancient-temple',
+    title: 'Robotic Character',
+    titleCN: '古廟場景',
+    category: '3D Modelling',
+    year: '2024',
+    duration: '6 Weeks',
+    tools: ['3DS Max', 'Substance Painter'],
+    role: 'Group Project',
+    overview: `A 3D character depicting a robot designed as a futuristic figure. Its body is composed of smooth metallic surfaces, illuminated accents, and articulated joints. The robot’s face may feature expressive LED eyes or a digital display, giving it a sense of intelligence. It was inspired by a robot image found online, which influenced the overall design and concept of the character.`,
+    process: [
+      { title: 'Discussion & Reference', desc: 'Discussed and proposed the theme of the model is going to be and found reference online Pinterest for reference.' },
+      { title: 'Blockout & Modelling', desc: 'Decided and builded the primary structure for the height of the character and distingusing the body part in 3DS Max using modular components. Detailed are added after saperating the parts.' },
+      { title: 'Rendering & Texturing', desc: 'Rendering is done in 3Ds Max before exporting and importing to Subtance Painter for texturing.' },
+      { title: 'Final Detail & Post', desc: 'Final checking in lighting and details before adding background and posting in Substance Painter.' },
+    ],
+    gallery: [
+      { label: 'Final Render — Front View', img: 'assets/gallery/Robot.png' },
+      { label: 'Side View', img: 'assets/gallery/RSide.png' },
+      { label: 'Back View', img: 'assets/gallery/RBack.png' },
+    ],
+    tags: ['3D Environment','Architecture','Atmosphere','Stylised','ZBrush','Ink Wash'],
+    prev: null,
+    next: { id:'lantern-night', title:'Figma' },
+  },
+
+  'plum-blossom': {
+    id: 'plum-blossom',
+    title: 'Advertisement',
+    titleCN: '梅花系列',
+    category: 'Digital Illustration',
+    year: '2023',
+    duration: '4 Weeks',
+    tools: ['Photoshop','Illustrator'],
+    role: 'Solo Project — Gold Award',
+    overview: `A series of three digital illustrations interpreting the plum blossom — a symbol of resilience and elegance in East Asian culture — through a contemporary lens. Each piece explores a different season and emotional register, from the cold solitude of winter bloom to the warm exuberance of early spring. The series earned a Gold Award at the Academic Competition for MMT 2023.`,
+    process: [
+      { title: 'Concept Development', desc: 'Developed three distinct emotional narratives around the plum blossom motif. Mood boards were built for each piece, referencing classical Song Dynasty painting alongside contemporary botanical illustration.' },
+      { title: 'Sketch & Composition', desc: 'Loose gestural sketches refined into tight compositional studies. Each piece uses a different layout strategy — asymmetric, centred, and diagonal — to create visual variety across the series.' },
+      { title: 'Painting & Detail', desc: 'Painted in Photoshop using custom brush sets that mimic the texture of ink on rice paper. Petals were rendered with careful attention to translucency and edge softness.' },
+      { title: 'Series Cohesion', desc: 'Final color adjustments ensured the three pieces read as a unified series while retaining individual identity. A consistent border treatment and typography was applied for exhibition presentation.' },
+    ],
+
+    gallery: [
+      { label: 'Winter Solitude', bg: 'pc2' },
+      { label: 'First Bloom', bg: 'pc1' },
+      { label: 'Full Series Layout', bg: 'pc5' },
+    ],
+    tags: ['Digital Painting','Illustration','Series','Traditional Motif','Gold Award'],
+    prev: { id:'ancient-temple', title:'Robotic Character' },
+    next: { id:'dragon', title:'Poster' },
+  },
+
+  'tea-culture': {
+    id: 'tea-culture',
+    title: 'Brochure',
+    titleCN: '宣传册',
+    category: 'Digital Illustration',
+    year: '2025',
+    duration: '8 Weeks',
+    tools: ['Canva','Photoshop'],
+    role: 'Solo Project',
+    overview: `This brochure introduces a coffee shop with a cozy and inviting space where every cup is crafted with care, highlights of signature drinks and special offerings, showcases the unique experience provided, and encourages customers to visit, relax, and make coffee a part of their daily ritual.`,
+    process: [
+      { title: 'Topic Selection', desc: 'Choosing a suitable subject or idea to focus on, based on its relevance, interest, and purpose, ensuring it effectively guides the direction and content of the project or work.' },
+      { title: 'Create 2D Brochure', desc: 'Design the brochure layout by combining text, images, and visual elements to create a 2D front and back of the brochure design using Canva.' },
+      { title: 'Review & Edit', desc: 'Checks the content and design for errors, improving clarity, and refining visual elements to ensure a polished and professional result.' },
+      { title: 'Finalize & Share', desc: 'Finalizing the brochure and preparing for printing or digital distribution to reach the intended audience.' },
+    ],
+    gallery: [
+      { label: 'Finalized - Front View', img: 'assets/gallery/brochureFront.png', contain: true },
+      { label: '2D Design - Front', img: 'assets/gallery/bruchureDesignFront.png', contain: true},
+      { label: '2D Design - Back', img: 'assets/gallery/brochureDesignBack.png', contain: true},
+    ],
+    tags: ['Graphic Design','Digital Design'],
+    prev: { id:'plum-blossom', title:'Robotic Character' },
+    next: { id:'zen-app', title:'Manga' },
+  },
+  'dragon': {
+    id: 'dragon',
+    title: 'Poster',
+    titleCN: '海报设计',
+    category: 'Digital Illustration',
+    year: '2026',
+    duration: '1 Weeks',
+    tools: ['Photoshop','Canva'],
+    role: 'Group Project - Poster Designer  ',
+    overview: `The poster presents a professional and modern design that effectively promotes a talk. Using a clean layout, bold typography, and a cohesive blue color scheme to highlight key details such as the event date, time, location, and speaker.`,
+    process: [
+      { title: 'Information Collecting', desc: 'Gathered relevant details such as event information, speaker background, and key content to ensure the poster communicates accurate and other.' },
+      { title: 'Poster Designing', desc: 'Created a visually appealing layout by combining typography, colors, images, and graphic elements to effectively present the information' },
+      { title: 'Review & Edit', desc: 'Evaluated the design and content for errors, improving readability, and refined visual elements to achieve a polished and professional look.' },
+      { title: 'Finalize & Share', desc: 'Completed the final design and prepared for distribution through print or digital platforms sharing to reach the target audience.' },
+    ],
+    gallery: [
+      { label: 'Final Poster Design', img: 'assets/gallery/DesignPoster.png', height:100 },
+      { label: 'Poster Showcase 1', img: 'assets/gallery/poster.png' },
+      { label: 'CPoster Showcase 2', img: 'assets/gallery/poster2.png' },
+    ],
+    tags: ['Digital Design','Graphic Designer'],
+    prev: { id:'plum-blossom', title:'Robotic Character' },
+    next: { id:'lantern-night', title:'Figma' },
+  },
+  
+  'lantern-night': {
+    id: 'lantern-night',
+    title: 'Figma',
+    titleCN: '设计系统',
+    category: 'UI/UX',
+    year: '2025',
+    duration: '13 Weeks',
+    tools: ['Figma','Canva','Photoshop'],
+    role: 'Group Project',
+    overview: `A nostalgic 3D scene capturing the warmth and energy of a traditional night market strung with paper lanterns. The project prioritises mood over photorealism — every element is slightly stylised to evoke the soft, memory-like quality of childhood evenings at the pasar malam. Animated light flicker and cloth simulation bring the scene to life.`,
+    process: [
+      { title: 'Research & Planning', desc: 'Identified the project goals, understood the target audience, and gathered references to guide the overall design direction.' },
+      { title: 'Wireframing & Design Creation', desc: 'Developed the layout structure and transform into a visually appealing design using appropriate colors, typography, and elements.' },
+      { title: 'Review & Feedback', desc: 'Evaluated the design for usability and effectiveness while incorporating feedback to improve overall quality.' },
+      { title: 'Refinement & Finalize', desc: 'Enhanced details, ensured consistency, and prepared the final design for presentation or export.' },
+    ],
+    gallery: [
+      { label: 'Final Rendered Scene', img: 'assets/gallery/figma.png' },
+      { label: 'Lantern String Detail', img: 'assets/gallery/figma1.png' },
+      { label: 'Night Market Aerial View', iframe: '<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/dOjN0Fv0wOVr7Hr29cJgp0/VDP-figma-design?node-id=0-1&embed-host=share" allowfullscreen></iframe>' },
+    ],
+    tags: ['UI/UX Design','Digital Design', 'Mobile UI'],
+    prev: { id:'dragon', title:'Poster' },
+    next: { id:'zen-app', title:'Manga' },
+  },
+
+  'zen-app': {
+    id: 'zen-app',
+    title: 'Manga',
+    titleCN: '禪意冥想應用',
+    category: 'Mobile UI',
+    year: '2024',
+    duration: '5 Weeks',
+    tools: ['Figma','Photoshop'],
+    role: 'Solo Project',
+    overview: `A mindfulness mobile app designed around the principles of negative space and intentional simplicity. The visual language draws from Zen ink painting — generous whitespace, a monochromatic sage and stone palette, and micro-interactions that feel unhurried and deliberate. The goal was to make the interface itself feel meditative.`,
+    process: [
+      { title: 'Philosophy & Tone', desc: 'Researched Zen aesthetic principles (wabi-sabi, ma, ensō) and translated them into design constraints: maximum three colours, no decorative borders, interactions never faster than 600ms.' },
+      { title: 'Wireframing', desc: 'Low-fidelity wireframes prioritised breathing room. Tested three layout approaches with target users and selected the most spatially generous variant.' },
+      { title: 'Visual Language', desc: 'Developed a restrained design system — a single sans-serif with five weights, a sage/stone/paper palette, and subtle ensō circle motifs used as progress indicators.' },
+      { title: 'Micro-interactions', desc: 'Every tap, swipe, and transition was choreographed to feel considered. Session completion is marked by an ensō animation that draws itself slowly — the design centrepiece.' },
+    ],
+    gallery: [
+      { label: 'Onboarding & Home', bg: 'pc6' },
+      { label: 'Session Timer Screen', img: 'pc3' },
+      { label: 'Progress & History', img: 'pc6' },
+    ],
+    tags: ['Mobile UI','Mindfulness','Minimalism','Figma','Micro-interactions','Zen'],
+    prev: { id:'lantern-night', title:'Figma' },
+    next: null,
+  },
+};
+
+// card bg SVG wave helper (matches main portfolio wave pattern)
+const WAVES = {
+  pc1: '#c4d9c8,#adc9b5',
+  pc2: '#c4d5d9,#adc2c9',
+  pc3: '#d4ccd8,#c0b2c5',
+  pc4: '#d8d0c0,#c4baa8',
+  pc5: '#bcd8c8,#a4c8b2',
+  pc6: '#cccae0,#b8b4cc',
+}
+
+function wavesSVG(cls) {
+  const cols = WAVES[cls] ? WAVES[cls].split(',') : ['#c4d9c8','#adc9b5'];
+  return `<svg class="gal-bg" viewBox="0 0 800 450" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="800" height="450" fill="url(#wg-${cls})"/>
+    <defs><linearGradient id="wg-${cls}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${cols[0]}"/><stop offset="100%" stop-color="${cols[1]}"/></linearGradient></defs>
+    <path d="M0,450 Q200,200 400,280 Q600,360 800,180 L800,450Z" fill="rgba(87,134,104,0.22)"/>
+    <path d="M0,450 Q220,320 420,360 Q640,400 800,310 L800,450Z" fill="rgba(58,102,80,0.18)"/>
+    <ellipse cx="160" cy="90" rx="80" ry="24" fill="rgba(255,255,255,.38)"/>
+    <ellipse cx="620" cy="70" rx="60" ry="18" fill="rgba(255,255,255,.32)"/>
+  </svg>`;
+}
+
+// generic project icon SVGs
+const ICONS = {
+  '3D Modelling':    `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 4L44 16v16L24 44 4 32V16z" stroke="rgba(58,102,80,0.6)" stroke-width="2" fill="rgba(191,216,198,0.35)"/><path d="M4 16l20 12 20-12M24 28v16" stroke="rgba(58,102,80,0.55)" stroke-width="2" fill="none"/></svg>`,
+  '3D Environment':  `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><line x1="24" y1="4" x2="24" y2="10" stroke="rgba(58,102,80,0.6)" stroke-width="2" stroke-linecap="round"/><rect x="14" y="10" width="20" height="4" rx="2" fill="rgba(58,102,80,0.45)"/><ellipse cx="24" cy="28" rx="11" ry="16" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><rect x="14" y="42" width="20" height="3" rx="1.5" fill="rgba(58,102,80,0.45)"/></svg>`,
+  'Digital Illustration': `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="14" r="7" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><circle cx="36" cy="22" r="7" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><circle cx="32" cy="36" r="7" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><circle cx="16" cy="36" r="7" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><circle cx="12" cy="22" r="7" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><circle cx="24" cy="25" r="4" fill="rgba(58,102,80,0.4)"/></svg>`,
+  'UI / UX Design':  `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="10" width="32" height="22" rx="2" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><path d="M18 32v6M30 32v6M14 38h20" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M8 18h32" stroke="rgba(58,102,80,0.4)" stroke-width="1.2" fill="none"/></svg>`,
+  'Mobile UI':       `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="4" width="18" height="32" rx="3" stroke="rgba(58,102,80,0.6)" stroke-width="1.8" fill="rgba(191,216,198,0.35)"/><circle cx="24" cy="33" r="1.5" fill="rgba(58,102,80,0.5)"/><path d="M20 10h8M20 14h6" stroke="rgba(58,102,80,0.4)" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>`,
+};
+
+// banner bg colours per category
+const BANNER_BG = {
+  '3D Modelling':         'linear-gradient(160deg,#b8d4c0,#7aaa8c,#4a7a60)',
+  '3D Environment':       'linear-gradient(160deg,#b4d2bc,#76a888,#3e6e56)',
+  'Digital Illustration': 'linear-gradient(160deg,#b8c8d4,#849eb0,#4e6878)',
+  'UI / UX Design':       'linear-gradient(160deg,#c4bcd8,#9088b0,#5c5480)',
+  'Mobile UI':            'linear-gradient(160deg,#c0bad4,#8c84b0,#585080)',
+};
+
+// ─── RENDER ───
+function render() {
+  const param = new URLSearchParams(window.location.search).get('project') || '';
+  const proj = PROJECTS[param];
+  const page = document.getElementById('page');
+
+  if (!proj) {
+    page.innerHTML = `<div class="not-found">
+      <span class="not-found-glyph">無</span>
+      <h2 class="not-found-title">Project Not Found</h2>
+      <p class="not-found-sub">The project you're looking for doesn't exist or has moved.</p>
+      <a href="portfolio.html#projects" class="back-btn" style="display:inline-flex;max-width:260px;margin:0 auto;">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M16 10H4M9 5L4 10l5 5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to Projects
+      </a>
+    </div>`;
+    return;
+  }
+
+  // Update page title
+  document.title = `${proj.title} · Hooi Wai San`;
+
+  // Banner bg
+  const bannerBg = BANNER_BG[proj.category] || BANNER_BG['3D Modelling'];
+
+  // Gallery HTML
+  const galLayout = proj.gallery.length === 1 ? 'layout-1' : proj.gallery.length === 2 ? 'layout-2' : 'layout-3';
+  const galItems = proj.gallery.map((g,i) => {
+    const mediaHTML = g.iframe
+      ? `<iframe src="${g.iframe}" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allowfullscreen loading="lazy"></iframe>`
+      : g.img
+      ? `<img src="${g.img}" alt="${g.label}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">`
+      : `${wavesSVG(g.bg)}<div class="gal-icon">${ICONS[proj.category] || ICONS["3D Modelling"]}</div>`;
+    return `<div class="gal-item${i===0&&proj.gallery.length===3?" tall":""}"> ${mediaHTML}<span class="gal-label">${g.label}</span></div>`;
+  }).join("");
+
+  // Process steps
+  const steps = proj.process.map((s,i) => `
+    <div class="process-step">
+      <div class="process-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="process-body">
+        <div class="process-step-title">${s.title}</div>
+        <p class="process-step-desc">${s.desc}</p>
+      </div>
+    </div>`).join('');
+
+  // Tags
+  const tags = proj.tags.map(t => `<span class="tag"><svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="3" fill="currentColor" opacity=".5"/></svg>${t}</span>`).join('');
+
+  // Prev / Next
+  const prevHTML = proj.prev
+    ? `<a href="project.html?project=${proj.prev.id}" class="proj-nav-btn prev" data-nav>
+        <div class="pnb-icon"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M14 10H6M9 6L5 10l4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pnb-text"><span class="pnb-label">Previous Project</span><span class="pnb-title">${proj.prev.title}</span></div>
+      </a>`
+    : `<div></div>`;
+
+  const nextHTML = proj.next
+    ? `<a href="project.html?project=${proj.next.id}" class="proj-nav-btn next" data-nav>
+        <div class="pnb-icon"><svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10h8M11 6l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="pnb-text"><span class="pnb-label">Next Project</span><span class="pnb-title">${proj.next.title}</span></div>
+      </a>`
+    : `<div></div>`;
+
+  page.innerHTML = `
+    <!-- BANNER -->
+    <div class="proj-banner" id="banner">
+      <div class="banner-bg" style="background:${bannerBg}"></div>
+
+      <!-- Mountains -->
+      <svg class="banner-mtn" style="height:55%;" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,320 Q200,140 400,200 Q580,258 720,120 Q850,5 1000,100 Q1160,198 1440,150 L1440,320Z" fill="rgba(255,255,255,0.07)"/>
+        <path d="M0,320 Q180,220 360,258 Q560,300 680,210 Q820,120 980,172 Q1150,228 1440,248 L1440,320Z" fill="rgba(0,0,0,0.12)"/>
+      </svg>
+
+      <!-- Floating clouds -->
+      <svg class="banner-cloud" style="top:14%;left:6%;width:180px;opacity:.35;" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="90" cy="30" rx="80" ry="22" fill="white"/>
+        <ellipse cx="110" cy="20" rx="52" ry="18" fill="white"/>
+        <ellipse cx="65" cy="22" rx="40" ry="15" fill="white"/>
+      </svg>
+      <svg class="banner-cloud" style="top:22%;right:18%;width:130px;opacity:.25;" viewBox="0 0 130 40" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="65" cy="25" rx="58" ry="17" fill="white"/>
+        <ellipse cx="80" cy="16" rx="38" ry="14" fill="white"/>
+      </svg>
+
+      <!-- Seal watermark -->
+      <div class="banner-seal">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="180" height="180" stroke="white" stroke-width="6" fill="none"/>
+          <rect x="20" y="20" width="160" height="160" stroke="white" stroke-width="2" fill="none"/>
+          <text x="100" y="130" text-anchor="middle" font-family="'ZCOOL XiaoWei','Noto Serif SC',serif" font-size="100" fill="white" font-weight="600">許</text>
+        </svg>
+      </div>
+
+      <!-- Floating icon -->
+      <div class="banner-icon-wrap">${ICONS[proj.category] || ICONS['3D Modelling']}</div>
+
+      <div class="banner-content" id="bannerContent">
+        <div class="banner-eyebrow">
+          <div class="banner-eyebrow-line"></div>
+          <span class="banner-eyebrow-text">${proj.category}</span>
+        </div>
+        <h1 class="banner-title">${proj.title}<br><span style="font-size:.5em;letter-spacing:.22em;font-weight:300;opacity:.75;">${proj.titleCN}</span></h1>
+      </div>
+    </div>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb" id="bc">
+      <a href="portfolio.html">Home</a>
+      <span class="breadcrumb-sep">·</span>
+      <a href="portfolio.html#projects">Projects</a>
+      <span class="breadcrumb-sep">·</span>
+      <span class="breadcrumb-cur">${proj.title}</span>
+    </div>
+
+    <!-- MAIN + SIDEBAR -->
+    <div class="proj-wrap" id="projWrap">
+
+      <!-- LEFT -->
+      <div class="proj-main">
+
+        <!-- Overview -->
+        <div class="section-label" id="sl-overview">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">Overview</span>
+        </div>
+        <svg class="wave-div" viewBox="0 0 64 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 Q8 1 16 5 Q24 9 32 5 Q40 1 48 5 Q56 9 64 5" stroke="#bfd8c6" stroke-width="1.4" fill="none"/></svg>
+        <p class="proj-desc" id="projDesc">${proj.overview}</p>
+
+        <!-- Gallery -->
+        <div class="section-label" id="sl-gallery">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">Gallery</span>
+        </div>
+        <div class="gallery ${galLayout}" id="gallery" style="margin-top:18px;">
+          ${galItems}
+        </div>
+
+        <!-- Process -->
+        <div class="section-label" id="sl-process" style="margin-top:44px;">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">Process</span>
+        </div>
+        <div class="process" id="process" style="margin-top:18px;">
+          ${steps}
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDEBAR -->
+      <div class="proj-sidebar" id="sidebar">
+
+        <!-- Project Info -->
+        <div class="info-card">
+          <div class="info-card-head">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="12" height="12" rx="1.5" stroke-width="1.4"/><path d="M5 6h6M5 9h4" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span class="info-card-head-txt">Project Info</span>
+          </div>
+          <div class="info-rows">
+            <div class="info-row"><span class="info-row-label">Category</span><span class="info-row-val">${proj.category}</span></div>
+            <div class="info-row"><span class="info-row-label">Year</span><span class="info-row-val">${proj.year}</span></div>
+            <div class="info-row"><span class="info-row-label">Duration</span><span class="info-row-val">${proj.duration}</span></div>
+            <div class="info-row"><span class="info-row-label">Role</span><span class="info-row-val">${proj.role}</span></div>
+          </div>
+        </div>
+
+        <!-- Tools Used -->
+        <div class="info-card">
+          <div class="info-card-head">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 13l3-3 6-6-2-2-6 6-3 3 2 2zM10 4l2 2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="info-card-head-txt">Tools Used</span>
+          </div>
+          <div class="tag-cloud">${proj.tools.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+
+        <!-- Tags -->
+        <div class="info-card">
+          <div class="info-card-head">
+            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 2h5l7 7-5 5-7-7V2z" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5" cy="5" r="1" fill="currentColor" stroke="none"/></svg>
+            <span class="info-card-head-txt">Keywords</span>
+          </div>
+          <div class="tag-cloud">${tags}</div>
+        </div>
+
+        <!-- Back button -->
+        <a href="portfolio.html#projects" class="back-btn" id="backBtnSide">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M16 10H4M9 5L4 10l5 5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All Projects · 全部作品
+        </a>
+
+      </div>
+    </div>
+
+    <!-- PREV / NEXT -->
+    <div class="proj-nav" id="projNav">
+      ${prevHTML}
+      ${nextHTML}
+    </div>
+  `;
+
+  // ─── ANIMATIONS ───
+  // Cursor hover targets
+  cursorHover(document.querySelectorAll('a,button,.tag,.proj-nav-btn,.gal-item,.back-btn'));
+
+  // Page fade in
+  gsap.to('body', { opacity:1, duration:.55, ease:'power2.out' });
+
+  // Banner
+  gsap.from('#bannerContent > *', { opacity:0, y:30, stagger:.14, duration:.9, ease:'power3.out', delay:.2 });
+  gsap.from('.banner-cloud', { opacity:0, x:-20, stagger:.18, duration:1.2, ease:'power2.out', delay:.3 });
+  gsap.from('.banner-icon-wrap', { opacity:0, scale:.7, duration:1.4, ease:'back.out(2)', delay:.4 });
+
+  // Breadcrumb + content
+  gsap.from('#bc', { opacity:0, y:-10, duration:.5, ease:'power2.out', delay:.5 });
+  gsap.from('#sl-overview, #projDesc', { opacity:0, y:24, stagger:.1, duration:.7, ease:'power3.out',
+    scrollTrigger:{ trigger:'#sl-overview', start:'top 86%' }
+  });
+  gsap.from('#sl-gallery', { opacity:0, y:16, duration:.6, ease:'power3.out',
+    scrollTrigger:{ trigger:'#sl-gallery', start:'top 88%' }
+  });
+  gsap.from('.gal-item', { opacity:0, y:32, scale:.97, stagger:.12, duration:.65, ease:'back.out(1.4)',
+    scrollTrigger:{ trigger:'#gallery', start:'top 84%' }
+  });
+  gsap.from('#sl-process', { opacity:0, y:16, duration:.6, ease:'power3.out',
+    scrollTrigger:{ trigger:'#sl-process', start:'top 88%' }
+  });
+  gsap.from('.process-step', { opacity:0, x:-24, stagger:.14, duration:.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'#process', start:'top 84%' }
+  });
+  gsap.from('#sidebar > *', { opacity:0, x:32, stagger:.12, duration:.7, ease:'power3.out',
+    clearProps:'transform',
+    scrollTrigger:{ trigger:'#projWrap', start:'top 78%' }
+  });
+  gsap.from('#projNav > *', { opacity:0, y:24, stagger:.14, duration:.65, ease:'power3.out',
+    scrollTrigger:{ trigger:'#projNav', start:'top 90%' }
+  });
+
+  // Prev/next page fade
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      gsap.to('body', { opacity:0, duration:.32, ease:'power2.in', onComplete:() => { window.location.href = href; } });
+    });
+  });
+
+  // Back buttons
+  [document.getElementById('backBtn'), document.getElementById('backBtnSide')].forEach(btn => {
+    if(!btn) return;
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      gsap.to('body', { opacity:0, duration:.32, ease:'power2.in', onComplete:() => { window.location.href = btn.getAttribute('href'); } });
+    });
+  });
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+
+}
+
+render();
+
+// ─── LIGHTBOX ───
+function closeLightbox() {
+  gsap.to('#lightbox', { opacity:0, duration:.25, ease:'power2.in', onComplete:() => {
+    document.getElementById('lightbox').style.display = 'none';
+    document.getElementById('lb-img').src = '';
+  }});
+}
+ 
+document.addEventListener('DOMContentLoaded', () => {
+  // Open on image click
+  document.querySelectorAll('.gal-item img').forEach(img => {
+    img.closest('.gal-item').addEventListener('click', () => {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      lbImg.src = img.src;
+      lb.style.display = 'flex';
+      requestAnimationFrame(() => {
+        gsap.fromTo(lb, { opacity:0 }, { opacity:1, duration:.3, ease:'power2.out' });
+        gsap.fromTo('#lb-img', { scale:.88, opacity:0 }, { scale:1, opacity:1, duration:.38, ease:'back.out(1.6)' });
+      });
+    });
+  });
+ 
+  // Close button
+  document.getElementById('lb-close').addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeLightbox();
+  });
+ 
+  // Click backdrop to close
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  });
+ 
+  // Escape key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+});
+
+</script>
+
+  <!-- ─── LIGHTBOX ─── -->
+<div id="lightbox" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(20,40,30,0.92); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:24px;">
+  <button id="lb-close" style="position:fixed; top:24px; right:32px; background:none; border:1px solid rgba(191,216,198,0.5); color:#bfd8c6; font-family:'Cinzel',serif; font-size:11px; letter-spacing:.3em; padding:8px 18px; cursor:pointer; transition:all .25s; z-index:1002;">✕ &nbsp;CLOSE</button>
+  <img id="lb-img" src="" alt="" style="max-width:90vw; max-height:88vh; object-fit:contain; display:block; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+</div>
+
+
+</body>
+</html>
