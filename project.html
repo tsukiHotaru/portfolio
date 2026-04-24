@@ -3,7 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project · Hooi Wai San</title>
+<title>Project · Hooi Wai San | 3D Artist & Illustrator Portfolio</title>
+
+<!-- ─── SEO: Core ─── -->
+<meta name="description" content="Explore the project work of Hooi Wai San — a Malaysia-based 3D artist and digital illustrator. Projects include 3D character modelling, brochure design, poster design, UI/UX prototypes, and digital illustration.">
+<meta name="keywords" content="Hooi Wai San project, 3D modelling portfolio, digital illustration project, UI UX design Malaysia, character design project, brochure design Malaysia, poster design freelance, Figma prototype, robot 3D model, ZBrush character">
+<meta name="author" content="Hooi Wai San">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#3a6650">
+
+<!-- ─── SEO: Open Graph ─── -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Project · Hooi Wai San | 3D Artist & Illustrator">
+<meta property="og:description" content="Detailed project showcase by Hooi Wai San — 3D modelling, digital illustration, UI/UX design and more. Available for hire and freelance.">
+<meta property="og:url" content="https://hooiwaisan.github.io/project.html">
+<meta property="og:image" content="assets/gallery/Robot.png">
+<meta property="og:locale" content="en_MY">
+<meta property="og:site_name" content="Hooi Wai San Portfolio">
+
+<!-- ─── SEO: Twitter Card ─── -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Project · Hooi Wai San | 3D Artist & Illustrator">
+<meta name="twitter:description" content="Project showcase by Hooi Wai San — 3D modelling, digital illustration, UI/UX. Available for internship and freelance.">
+<meta name="twitter:image" content="assets/gallery/Robot.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;500&family=Cinzel:wght@400;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -181,9 +203,10 @@ const PROJECTS = {
       { title: 'Refinement & Finalize', desc: 'Enhanced details, ensured consistency, and prepared the final design for presentation or export.' },
     ],
     gallery: [
+      { label: 'Night Market Aerial View', iframe: '<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/dOjN0Fv0wOVr7Hr29cJgp0/VDP-figma-design?node-id=0-1&embed-host=share" allowfullscreen></iframe>' },
       { label: 'Final Rendered Scene', img: 'assets/gallery/figma.png' },
       { label: 'Lantern String Detail', img: 'assets/gallery/figma1.png' },
-      { label: 'Night Market Aerial View', iframe: '<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/dOjN0Fv0wOVr7Hr29cJgp0/VDP-figma-design?node-id=0-1&embed-host=share" allowfullscreen></iframe>' },
+
     ],
     tags: ['UI/UX Design','Digital Design', 'Mobile UI'],
     prev: { id:'dragon', title:'Poster' },
@@ -285,13 +308,65 @@ function render() {
   // Gallery HTML
   const galLayout = proj.gallery.length === 1 ? 'layout-1' : proj.gallery.length === 2 ? 'layout-2' : 'layout-3';
   const galItems = proj.gallery.map((g,i) => {
-    const mediaHTML = g.iframe
-      ? `<iframe src="${g.iframe}" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allowfullscreen loading="lazy"></iframe>`
-      : g.img
-      ? `<img src="${g.img}" alt="${g.label}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">`
-      : `${wavesSVG(g.bg)}<div class="gal-icon">${ICONS[proj.category] || ICONS["3D Modelling"]}</div>`;
-    return `<div class="gal-item${i===0&&proj.gallery.length===3?" tall":""}"> ${mediaHTML}<span class="gal-label">${g.label}</span></div>`;
-  }).join("");
+    let mediaHTML;
+    if (g.figma) {
+      // Figma embed — themed frame with header bar
+      mediaHTML = `
+        <div class="figma-embed-wrap">
+          <div class="figma-embed-bar">
+            <div class="figma-embed-bar-left">
+              <svg class="figma-logo-icon" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5z" fill="#1ABCFE"/>
+                <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5A9.5 9.5 0 0 1 0 47.5z" fill="#0ACF83"/>
+                <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19z" fill="#FF7262"/>
+                <path d="M0 9.5a9.5 9.5 0 0 0 9.5 9.5H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
+                <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
+              </svg>
+              <span class="figma-embed-label">Figma Prototype</span>
+            </div>
+            <a class="figma-embed-open" href="${g.figma}" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Open in Figma
+            </a>
+          </div>
+          <div class="figma-embed-frame">
+            <iframe src="${g.figma}" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>`;
+    } else if (g.iframe) {
+      // Legacy raw iframe HTML string — parse out the src
+      const srcMatch = g.iframe.match(/src="([^"]+)"/);
+      const iframeSrc = srcMatch ? srcMatch[1] : '';
+      mediaHTML = `
+        <div class="figma-embed-wrap">
+          <div class="figma-embed-bar">
+            <div class="figma-embed-bar-left">
+              <svg class="figma-logo-icon" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5z" fill="#1ABCFE"/>
+                <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5A9.5 9.5 0 0 1 0 47.5z" fill="#0ACF83"/>
+                <path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19z" fill="#FF7262"/>
+                <path d="M0 9.5a9.5 9.5 0 0 0 9.5 9.5H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/>
+                <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/>
+              </svg>
+              <span class="figma-embed-label">Figma Prototype</span>
+            </div>
+            <a class="figma-embed-open" href="${iframeSrc}" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3L7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Open in Figma
+            </a>
+          </div>
+          <div class="figma-embed-frame">
+            <iframe src="${iframeSrc}" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>`;
+    } else if (g.img) {
+      mediaHTML = `<img src="${g.img}" alt="${g.label}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:${g.contain?'contain':'cover'};">`;
+    } else {
+      mediaHTML = `${wavesSVG(g.bg)}<div class="gal-icon">${ICONS[proj.category] || ICONS["3D Modelling"]}</div>`;
+    }
+    const isFigmaItem = g.figma || g.iframe;
+    return `<div class="gal-item${i===0&&proj.gallery.length===3&&!isFigmaItem?" full":i>0&&proj.gallery.length===3?" tall":""}${isFigmaItem?" figma-gal-item":""}"> ${mediaHTML}<span class="gal-label">${g.label}</span></div>`;
+  }).join("")
 
   // Process steps
   const steps = proj.process.map((s,i) => `
