@@ -793,6 +793,16 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+const resetAnimatedCardPositions = () => {
+  gsap.set('.proj-card, .tool-card', { clearProps:'transform' });
+};
+
+ScrollTrigger.addEventListener('refreshInit', resetAnimatedCardPositions);
+window.addEventListener('pageshow', () => {
+  resetAnimatedCardPositions();
+  ScrollTrigger.refresh();
+});
+
 // ─ Inject 4-corner brackets into tool stamp frames ─
 document.querySelectorAll('.ti-wrap').forEach(w => {
   const b = document.createElement('span');
@@ -847,33 +857,40 @@ gsap.from('#about .about-right > *', {
 });
 
 // ─ Projects ─
-gsap.from('.proj-card', {
-  opacity:0, y:48, stagger:.09, duration:.72, ease:'back.out(1.3)',
-  scrollTrigger:{ trigger:'#projects', start:'top 74%' }
-});
+gsap.fromTo('.proj-card',
+  { opacity:0, y:48 },
+  {
+    opacity:1, y:0, stagger:.09, duration:.72, ease:'back.out(1.3)',
+    clearProps:'transform,opacity',
+    scrollTrigger:{
+      trigger:'#projects',
+      start:'top 74%',
+      once:true,
+      invalidateOnRefresh:true
+    }
+  }
+);
 
 // ─ Tools ─
-// Set initial state via GSAP (not CSS) so it can always animate to visible
-gsap.set('.tool-card', { opacity:0, scale:.88, y:16 });
+const toolCardTween = gsap.fromTo('.tool-card',
+  { opacity:0, scale:.88, y:16 },
+  {
+    opacity:1, scale:1, y:0,
+    stagger:.07, duration:.6, ease:'back.out(1.4)',
+    paused:true,
+    clearProps:'transform,opacity',
+    onComplete: () => {
+      document.querySelectorAll('.tool-card').forEach(c => c.classList.add('gsap-ready'));
+    }
+  }
+);
 
 ScrollTrigger.create({
   trigger: '.tools-grid',
   start: 'top 82%',
   once: true,
-  onEnter: () => {
-    gsap.to('.tool-card', {
-      opacity:1, scale:1, y:0,
-      stagger:.07, duration:.6, ease:'back.out(1.4)',
-      onComplete: () => {
-        // Clear inline styles so CSS hover transitions work cleanly
-        document.querySelectorAll('.tool-card').forEach(c => {
-          c.style.opacity = '';
-          c.style.transform = '';
-          c.classList.add('gsap-ready');
-        });
-      }
-    });
-  }
+  invalidateOnRefresh: true,
+  onEnter: () => toolCardTween.restart()
 });
 
 // Skill bar fill animation
